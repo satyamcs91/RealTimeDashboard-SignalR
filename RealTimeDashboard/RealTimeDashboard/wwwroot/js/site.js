@@ -55,7 +55,7 @@ $(() => {
             
             <div class="table-responsive ">
                 <table class="table table-bordered table-striped table-sm">
-                    <thead class="visually-hidden">
+                    <thead class="visually-hidden bg-secondary">
                         <tr>
                             <th scope="col">Batch No</th>
                             <th scope="col">RFID No</th>
