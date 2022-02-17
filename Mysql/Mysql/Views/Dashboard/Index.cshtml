@@ -1,0 +1,73 @@
+﻿@using Mysql.Helper;
+@model List<Products>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="app-main">
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <div class="row">
+                    <div>
+                        <div class="card mb-3 widget-content bg-midnight-bloom">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Model No.</th>
+                                        <th>Asset Name</th>
+                                        <th>Location</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablebody">
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form action="Dashboard/SaveAssets" method="post">
+        <div class="row">
+            <div class="col">
+                <input id="modelno" type="text" class="form-control" name="ModelNo" placeholder="Model No">
+            </div>
+            <div class="col">
+                <input id="assetname" type="text" class="form-control" name="AssetName" placeholder="Asset Name">
+            </div>
+            <div class="col">
+                <input id="location" type="text" class="form-control" name="Location" placeholder="Location">
+            </div>
+            <div class="col">
+                <input id="cost" type="text" class="form-control" name="Cost" placeholder="Cost">
+            </div>
+        </div>
+        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+ <script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+ <script src="~/js/signalr/dist/browser/signalr.js"></script>
+ <script src="~/js/chat.js"></script>
+</body>
+
+</html>
+

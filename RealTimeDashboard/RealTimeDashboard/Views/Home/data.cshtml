@@ -1,0 +1,57 @@
+﻿<section id="section" class="d-flex p-1 mb-2">
+    <div class="flex-sm-fill m-1 p-1 bg-white " style="border: 3px solid grey">
+        <div id="gateno" class="bg-primary  py-3">
+            <h3 class="text-center text-white">${DispatchGateInfo.GateNo}</h3>
+            <div class="h6 m-0 text-white text-break px-3 py-1">PackList No : ${DispatchGateInfo.PacklistNo} </div>
+        </div>
+        <div class="bg-white py-3">
+            <div class="card border-0" style="width:max-content; float:right">
+                <div id="Total" class="bg-primary py-2"><div class="h6 m-0 text-white px-3">Total :  ${DispatchGateInfo.Total} </div></div>
+                <div class="bg-danger py-2"><div class="h6 m-0 text-white px-3">Pending :  ${DispatchGateInfo.Pending}  </div> </div>
+                <div id="Dispatched" class="bg-success py-2"> <div class="h6 m-0 text-white px-3">Dispatched :  ${DispatchGateInfo.Dispatched}  </div> </div>
+                <div id="TagCollected" class="py-2" style="background-color:darkorange"><div class="h6 m-0 text-white px-3">Tag Collected :  ${DispatchGateInfo.RFIDTagCollected} </div></div>
+            </div>
+
+            <div class=" bg-white py-3 truckdata">
+                <div id="BatchNo" class="h6 m-2 text-black px-0"> Batch No : ${DispatchGateInfo.BatchInfos[0].BatchNo} </div>
+                <div id="ProducedOn" class="h6 m-2 text-black px-0"> Produced On :  ${DispatchGateInfo.BatchInfos[0].ProducedOn} </div>
+                <div id="RFIDNo" class="h6 m-2 text-black px-0"> RFID No :  ${DispatchGateInfo.BatchInfos[0].RFIDNo} </div>
+                <div id="TruckNo" class="h6 m-2 text-primary px-0"> <b>Truck No : ${DispatchGateInfo.BatchInfos[0].TruckNo} </b> </div>
+            </div>
+
+        </div>
+
+        <div class="table-responsive ">
+            <table class="table table-bordered table-striped display nowrap">
+                <thead class="visually-hidden">
+                    <tr>
+                        <th scope="col">Batch No</th>
+                        <th scope="col">RFID No</th>
+                        <th scope="col">Wt</th>
+                        <th scope="col">Len</th>
+                        <th scope="col">Wid</th>
+                    </tr>
+                </thead>
+                <tbody id="tblbody">
+
+
+
+                    <tr style=background-color:crimson;color:white>
+                        <td>${BatchWiseInfo.BatchNo}</td>
+                        <td>${BatchWiseInfo.RFIDNo}</td>
+                        <td>${BatchWiseInfo.Weight}</td>
+                        <td>${BatchWiseInfo.Length}</td>
+                        <td>${BatchWiseInfo.Width}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+
+    </div>
+  
+</section>
+
+
