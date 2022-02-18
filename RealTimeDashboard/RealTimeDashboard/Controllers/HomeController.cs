@@ -86,9 +86,6 @@ namespace RealTimeDashboard.Controllers
             _dependency.OnChanged += _dependency_Onchanged;
             _dependency.OnError += _dependency_Onerror;
             _dependency.Start();
-
-          
-          
             return View();
         }      
         public async Task<IActionResult> GetJson()
