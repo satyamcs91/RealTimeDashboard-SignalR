@@ -1,39 +1,25 @@
 ﻿
 
 $(() => {
-    LoadData();
+   
     
     var Connection = new signalR.HubConnectionBuilder().withUrl("/signalServer").build();
     Connection.start();
-    Connection.on("RefreshEmployees", function () {
-        LoadData();
-    })
-
-    LoadData();
-
-    function LoadData() {
-        
-        var tr = '';
-        var div = '';
-        $.ajax({
-            url: 'Home/GetJson',
-            method: 'GET',
-            success: (result) => {
-              
-                var obj = $.parseJSON(result);
-               
-                var count = Object.keys(obj.DispatchGatesList).length;
-                console.log(count);
-                if (count == 0) {
-                    div += `
+    Connection.on("RefreshEmployees", function (result) {  
+        var divs = '' ;
+        var obj = $.parseJSON(result);
+        var count = Object.keys(obj.DispatchGatesList).length;
+        console.log(count);
+        if (count == 0) {
+            divs += `
                      <div class=" align-content-center" style="position: relative;left: 37%; top: 123px;" >No Content available. Waiting for the Packlist  </div>
                      `
 
-                } else {
-                    for (var i = 0; i < obj.DispatchGatesList.length; i++) {
-                        var DispatchGateInfo = obj.DispatchGatesList[i];
+        } else {
+            for (var i = 0; i < obj.DispatchGatesList.length; i++) {
+                var DispatchGateInfo = obj.DispatchGatesList[i];
 
-                        div += [` <div class="flex-sm-fill m-1 p-1 bg-white " style="border: 3px solid grey">
+                divs += [` <div class="flex-sm-fill m-1 p-1 bg-white " style="border: 3px solid grey">
             <div id="gateno"  class="bg-primary  py-3">
                 <h3  class="text-center text-white">${DispatchGateInfo.GateNo}</h3>
                 <div class="h6 m-0 text-white text-break px-3 py-1">PackList No : ${DispatchGateInfo.PacklistNo} </div>
@@ -52,7 +38,7 @@ $(() => {
                      <div id="TruckNo" class="h6 m-2 text-primary px-0"> <b>Truck No : ${DispatchGateInfo.BatchInfos[0].TruckNo} </b> </div>
                 </div>
             </div>
-            
+
             <div class="table-responsive ">
                 <table class="table table-bordered table-striped table-sm">
                     <thead class="visually-hidden bg-secondary">
@@ -66,68 +52,71 @@ $(() => {
                     </thead>
                     <tbody id="tblbody">`].join("\n");
 
-                        for (var j = 0; j < DispatchGateInfo.BatchInfos.length; j++) {
-                            var BatchWiseInfo = DispatchGateInfo.BatchInfos[j];
-                            if (BatchWiseInfo.FoundStatus == "Red") {
-                                div += [
-                                    `<tr style=background-color:crimson;color:white>
+                for (var j = 0; j < DispatchGateInfo.BatchInfos.length; j++) {
+                    var BatchWiseInfo = DispatchGateInfo.BatchInfos[j];
+                    if (BatchWiseInfo.FoundStatus == "Red") {
+                        divs += [
+                            `<tr style=background-color:crimson;color:white>
                                     <td>${BatchWiseInfo.BatchNo}</td>
                                     <td>${BatchWiseInfo.RFIDNo}</td>
                                     <td>${BatchWiseInfo.Weight}</td>
                                     <td>${BatchWiseInfo.Length}</td>
                                     <td>${BatchWiseInfo.Width}</td>
                                 </tr>`
-                                ].join("\n");
-                            }
-                            else if (BatchWiseInfo.FoundStatus == "Blue") {
-                                if (BatchWiseInfo.RFIDTagCollectedStatus == "False") {
-                                    div += [
-                                        `<tr style=background-color:cornflowerblue>
-                                    <td>${BatchWiseInfo.BatchNo}</td>
-                                    <td>${BatchWiseInfo.RFIDNo}</td>
-                                    <td>${BatchWiseInfo.Weight}</td>
-                                    <td>${BatchWiseInfo.Length}</td>
-                                    <td>${BatchWiseInfo.Width}</td>
-                                </tr>`
-                                    ].join("\n");
-                                }
-                                else if (BatchWiseInfo.RFIDTagCollectedStatus == "True") {
-                                    div += [
-                                        `<tr style=background-color:lightgreen>
-                                    <td>${BatchWiseInfo.BatchNo}</td>
-                                    <td>${BatchWiseInfo.RFIDNo}</td>
-                                    <td>${BatchWiseInfo.Weight}</td>
-                                    <td>${BatchWiseInfo.Length}</td>
-                                    <td>${BatchWiseInfo.Width}</td>
-                                </tr>`
-                                    ].join("\n");
-                                }
-                            }
-                            else {
-                                div += [
-                                    `<tr>
-                                    <td>${BatchWiseInfo.BatchNo}</td>
-                                    <td>${BatchWiseInfo.RFIDNo}</td>
-                                    <td>${BatchWiseInfo.Weight}</td>
-                                    <td>${BatchWiseInfo.Length}</td>
-                                    <td>${BatchWiseInfo.Width}</td>
-                                </tr>`
-                                ].join("\n");
-                            }
-                        }
-                        div += ['</tbody></table>'].join("\n");
-                        div += ['</div>', '</div>', '</div>'].join("\n");
+                        ].join("\n");
                     }
-                }    
-                $('#section').html(div)
-              
-            },
-            error: (error) => {
-                console.log(error);
+                    else if (BatchWiseInfo.FoundStatus == "Blue") {
+                        if (BatchWiseInfo.RFIDTagCollectedStatus == "False") {
+                            divs += [
+                                `<tr style=background-color:cornflowerblue>
+                                    <td>${BatchWiseInfo.BatchNo}</td>
+                                    <td>${BatchWiseInfo.RFIDNo}</td>
+                                    <td>${BatchWiseInfo.Weight}</td>
+                                    <td>${BatchWiseInfo.Length}</td>
+                                    <td>${BatchWiseInfo.Width}</td>
+                                </tr>`
+                            ].join("\n");
+                        }
+                        else if (BatchWiseInfo.RFIDTagCollectedStatus == "True") {
+                            divs += [
+                                `<tr style=background-color:lightgreen>
+                                    <td>${BatchWiseInfo.BatchNo}</td>
+                                    <td>${BatchWiseInfo.RFIDNo}</td>
+                                    <td>${BatchWiseInfo.Weight}</td>
+                                    <td>${BatchWiseInfo.Length}</td>
+                                    <td>${BatchWiseInfo.Width}</td>
+                                </tr>`
+                            ].join("\n");
+                        }
+                    }
+                    else {
+                        divs += [
+                            `<tr>
+                                    <td>${BatchWiseInfo.BatchNo}</td>
+                                    <td>${BatchWiseInfo.RFIDNo}</td>
+                                    <td>${BatchWiseInfo.Weight}</td>
+                                    <td>${BatchWiseInfo.Length}</td>
+                                    <td>${BatchWiseInfo.Width}</td>
+                                </tr>`
+                        ].join("\n");
+                    }
+                }
+                divs += ['</tbody></table>'].join("\n");
+                divs += ['</div>', '</div>', '</div>'].join("\n");
             }
-        })
+        }
+        $('#section').html(divs)
+       
+    })
 
-    }
+   
+
+        
+
+              
+
+
+   
 })
 
 
